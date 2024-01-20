@@ -9,3 +9,23 @@ Paper Submission Deadline:
 
 2023 Winning Papers:
 https://iaqf.org/resources/Documents/Student%20Competition%20Announcement.pdf
+
+Our Paper Draft:
+https://docs.google.com/document/d/1v3zW2uIzTFQFvAXX4zIEWgLQfaoiX_d6RNKsoMr6xbg/edit?usp=sharing
+
+
+Timeline:
+- w1: Research 
+  - Talking with seniors about what IAQF about
+  - Broad research, e.g.
+    - Read methodology papers 
+    - Investigate dataset (how effective)
+    - Read existing paper about trading strategies using this data
+- w2: 
+    - talk with prof about ideas
+    - ...
+- w3: 
+    - ...
+- w4/5: 
+  - writing paper
+
