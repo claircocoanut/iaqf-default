@@ -1,2 +1,2 @@
 # iaqf-default
-IAQF Competition Code Repository
+IAQF 2024 Competition Code Repository
