@@ -1,0 +1,53 @@
+ticker,name,type
+afl,Aflac,equity
+aig,American International Group,equity
+all,Allstate,equity
+amp,"Ameriprise Financial, Inc.",equity
+axp,American Express Company,equity
+bac,Bank of America Corporation,equity
+bbt,BB&T Corporation,equity
+bcs,Barclays PLC,equity
+bk,Bank of New York-Mellon Corporation,equity
+cattle,Live cattle (CME),commodity
+cb,Chubb Corporation,equity
+citi,"Citigroup, Inc.",equity
+cof,Capital One Financial Corporation,equity
+corn,Corn (CME),commodity
+cs,Credit Suisse Group,equity
+db,Deutsche Bank AG,equity
+euro,Euro-USD exchange rate (CME),fx
+fitb,Fifth Third Bancorp,equity
+gold,Gold (CME),commodity
+gs,"Goldman Sachs Group, Inc.",equity
+hig,Hartford Financial Services Group,equity
+hogs,Lean hogs (CME),commodity
+infl1y,"CPI cap/floor-based inflation expectations, 1 year",inflation
+infl2y,"CPI cap/floor-based inflation expectations, 2 year",inflation
+infl5y,"CPI cap/floor-based inflation expectations, 5 year",inflation
+iyr,iShares real estate index,equity_idx
+jpm,JP Morgan Chase & Company,equity
+key,KeyCorp,equity
+lnc,Lincoln National Corporation,equity
+LR3y3m,"3 month LIBOR, 3-years-out",rate
+LR5y3m,"3 month LIBOR, 5-years-out",rate
+met,MetLife,equity
+ms,Morgan Stanley,equity
+oil,West Texas Intermediate Crude Oil (CME),commodity
+pfg,Principal Financial Group,equity
+pgr,Progressive Corporation,equity
+pnc,PNC Financial Services Group,equity
+pound,Pound-USD exchange rate (CME),fx
+pru,"Prudential Financial, Inc.",equity
+rf,Regions Financial Corporation,equity
+silver,Silver (CME),commodity
+soybns,Soybeans (CME),commodity
+sp12m,"S&P 500, 12-months-out",equity_idx
+sp6m,"S&P 500, 6-months-out",equity_idx
+sti,"SunTrust Banks, Inc.",equity
+stt,State Street Corp,equity
+tr10yr,10-Year Treasury price (CME),rate
+tr5yr,5-Year Treasury price (CME),rate
+usb,US Bancorp,equity
+wfc,Wells Fargo & Company,equity
+wheat,Wheat (CME),commodity
+yen,Yen-USD exchange rate (CME),fx

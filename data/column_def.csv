@@ -1,0 +1,12 @@
+name,description
+maturity_target,The time-to-expiry target for options selection
+mu,The mean of the MPD;  mu = sum(probability at ln-return x * ln-return x)
+sd,The standard deviation of the MPD;  sd = sqrt(sum(probability at ln-return x * (ln-return x - mu)^2))
+skew,The skew of the MPD;  skew = sum(probability at ln-return x * (ln-return x - mu)^3)/(sd^3)
+kurt,The kurtosis of the MPD;  kurt = sum(probability at ln-return x * (ln-return x - mu)^4)/(sd^4)-3
+p10,The 10th percentile of the MPD
+p50,The 50th percentile of the MPD
+p90,The 90th percentile of the MPD
+lg_change_prob,"The change in the expected return in percentage terms defined as ""large"""
+prDec,"The probability of a ""large decline"" in return as defined by ""lg_change_prob"""
+prInc,"The probability of a ""large increase"" in return as defined by ""lg_change_prob"""
