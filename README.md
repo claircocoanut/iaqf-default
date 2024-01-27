@@ -22,8 +22,13 @@ Timeline:
     - Investigate dataset (how effective)
     - Read existing paper about trading strategies using this data
 - w2: 
-    - talk with prof about ideas
-    - ...
+  - Meeting Agenda:
+    - What did senior say?
+    - Everyone sharing founding / idea
+    - Consolidate proposal (if decide -> email Mark?)
+    - Next week plan
+      - data
+      - strategy?
 - w3: 
     - ...
 - w4/5: 
