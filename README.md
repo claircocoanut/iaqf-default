@@ -24,13 +24,15 @@ Timeline:
 - w2: 
   - Meeting Agenda:
     - What did senior say?
+      - how well answer the question
+      - should read last year paper
     - Everyone sharing founding / idea
-    - Consolidate proposal (if decide -> email Mark?)
     - Next week plan
-      - data
-      - strategy?
+      - data: Alaia, Kelly, Clair
+      - strategy: Jiayu, Mukund, Saurabh
 - w3: 
-    - ...
+  - Talk to Mark?
+  - ...
 - w4/5: 
   - writing paper
 
