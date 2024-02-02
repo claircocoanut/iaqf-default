@@ -42,13 +42,13 @@ def calc_rolling_stat(df: pd.DataFrame, month: int = 3) -> pd.DataFrame:
         Index: DatetimeIndex
     """
 
-    def ret(x): return np.log(x[-1] / x[0])
+    def ret(x): return np.log(x.iloc[-1] / x.iloc[0])
 
-    def vol(x): return x[:-1].std()
+    def vol(x): return x.iloc[:-1].std()
 
-    def ret_max(x): return np.log(x.max() / x[0])
+    def ret_max(x): return np.log(x.max() / x.iloc[0])
 
-    def ret_min(x): return np.log(x.min() / x[0])
+    def ret_min(x): return np.log(x.min() / x.iloc[0])
 
     n = month * 20 + 1
     ret = df.rolling(f"{n}D").aggregate([ret, vol, ret_max, ret_min]).shift(-n)
@@ -63,17 +63,17 @@ def plot_change_scatter(s: pd.Series, df_mpd: pd.DataFrame):
     Parameters
     ----------
     s:  return / vol series to investigate
-        Index: (ticker: str, date: DatetimeIndex)
+        Index: (market: str, date: DatetimeIndex)
     df_mpd: pd.DataFrame of market-based probability
         Columns: at least ["prDec", "prInc"]
-        Index: (ticker: str, date: DatetimeIndex)
+        Index: (market: str, date: DatetimeIndex)
     """
 
     comp = pd.concat([
         df_mpd.set_index(["market", "idt"])[["prDec", "prInc"]],
         s], axis=1).sort_index().ffill()
 
-    tickers = comp.index.get_level_values("ticker")
+    tickers = comp.index.get_level_values("market")
     color_map = dict(zip(colors.TABLEAU_COLORS[:len(tickers)], tickers))
 
     fig, ax = plt.subplots(2, 1, figsize=(12, 4))
