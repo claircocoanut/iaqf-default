@@ -12,6 +12,7 @@ def cache_df(name: str):
     """
     Wrapper function to use locally stored data
     """
+
     def inner_func(func):
         def wrapper(use_cache: bool = False, *args, **kwargs):
             """
@@ -24,6 +25,7 @@ def cache_df(name: str):
                 df = func(*args, **kwargs)
                 df.to_pickle(f"../data/{name}.pkl")
             return df
+
         return wrapper
 
     return inner_func
@@ -48,11 +50,43 @@ def get_price(tickers: list[str],
     pd.DataFrame of required price data for analysis
     """
     dates = pd.date_range(start_date, end_date).strftime("%Y-%m-%d")
-    df = nasdaqdatalink.get_table('QUOTEMEDIA/PRICES',
-                                  date=','.join(dates.tolist()),
-                                  ticker=','.join(tickers),
-                                  paginate=True)
+    df = nasdaqdatalink.get_table(
+        'QUOTEMEDIA/PRICES',
+        date=','.join(dates.tolist()),
+        ticker=','.join(tickers),
+        paginate=True
+    )
     df = df.set_index(["date", "ticker"])["adj_close"].unstack()
+
+    return df
+
+
+@cache_df(name="fx_price")
+def get_fx(tickers: list[str],
+           start_date: str | datetime,
+           end_date: str | datetime) -> pd.DataFrame:
+    """
+    Download required data from Quandl QUOTEMEDIA/PRICES and
+    save to pickle file for future rerun.
+
+    Parameters
+    ----------
+    tickers: download price data of ticker from
+    start_date: get price data from start_date to end_date (both inclusive)
+    end_date: get price data from start_date to end_date (both inclusive)
+
+    Returns
+    -------
+    pd.DataFrame of required price data for analysis
+    """
+    dates = pd.date_range(start_date, end_date).strftime("%Y-%m-%d")
+    df = nasdaqdatalink.get_table(
+        'EDI/CUR',
+        date=','.join(dates.tolist()),
+        code=','.join(tickers),
+        paginate=True
+    )
+    df = df.set_index(["date", "code"])["rate"].unstack()
 
     return df
 

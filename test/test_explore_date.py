@@ -5,6 +5,7 @@ from data_analysis.explore_data import (
     calc_rolling_stat,
     merge_prob_stat,
     rename_stat_df,
+    eval_large_change_prob,
     plot_change_scatter,
     prep_regression_stat,
     compare_regressions,
@@ -32,6 +33,10 @@ def test_df(test_rolling_stat):
     df = merge_prob_stat(test_rolling_stat, mpd)
 
     return df
+
+
+def test_eval_large_change_prob(test_df):
+    eval_large_change_prob(test_df)
 
 
 def test_plot_change_scatter(test_df):

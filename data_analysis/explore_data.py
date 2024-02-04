@@ -98,11 +98,45 @@ def merge_prob_stat(df_stat: pd.DataFrame,
     comp = pd.concat([
         df_mpd.set_index(["market", "idt"])[["prDec", "prInc"]],
         df_stat.stack().swaplevel()], axis=1).sort_index()
-    comp[df_stat.stack().columns].ffill(inplace=True)
-    comp = comp.dropna(how="any")
     comp.index.names = ("market", "idt")
+    comp.loc[:, df_stat.stack().columns] = comp.groupby(
+        "market")[df_stat.stack().columns].ffill()
+    comp = comp.dropna(how="any")
 
     return comp
+
+
+def eval_large_change_prob(df: pd.DataFrame,
+                           ub: float = 0.2,
+                           lb: float = -0.2) -> pd.DataFrame:
+    """
+    Evaluate average probability for returns with large changes
+
+    Parameters
+    ----------
+   df: pd.DataFrame
+        Columns: at least ["prDec", "prInc", "ret"]
+        Index: (market: str, date: DatetimeIndex)
+    ub: upside large change threshold, e.g. 0.2 for equity
+    lb: downside large change threshold, e.g. -0.2 for equity
+
+    Returns
+    -------
+    pd.DataFrame
+    """
+    markets = df.index.get_level_values("market").unique()
+    results = {}
+
+    for m in markets:
+        groupby = np.select(
+            [df.loc[m, "ret"] > ub, df.loc[m, "ret"] < lb],
+            [1, -1],
+            default=0
+        )
+        results[m] = df.loc[m][["prDec", "prInc"]].groupby(
+            groupby).mean().unstack()
+
+    return pd.DataFrame(results).T
 
 
 def hurst_exponent(x, max_lag=20):
