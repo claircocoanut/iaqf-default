@@ -96,7 +96,7 @@ def merge_prob_stat(df_stat: pd.DataFrame,
             ret_max: next X_month maximum return
     """
     comp = pd.concat([
-        df_mpd.set_index(["market", "idt"])[["prDec", "prInc"]],
+        df_mpd.set_index(["market", "idt"]),
         df_stat.stack().swaplevel()], axis=1).sort_index()
     comp.index.names = ("market", "idt")
     comp.loc[:, df_stat.stack().columns] = comp.groupby(
