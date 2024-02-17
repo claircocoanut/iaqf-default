@@ -31,8 +31,23 @@ Timeline:
       - data: Alaia, Kelly, Clair
       - strategy: Jiayu, Mukund, Saurabh
 - w3: 
-  - Talk to Mark?
+  - Talk to Mark
+    - Meeting Notes with Mark:
+      1. use hit test on p10 / p50 / p90 data
+      2. if results is positive, use prInc and prDec for strategy
+      3. strategy idea: 1) compare all prInc and prDec with their history and if some asset is exceptional good / bad 
+         4. -> long / short
+      4. our pair trading idea is also interesting but need to hedge the risk right
+      5. when allocation assets make sure optimisation simple and understandable
   - ...
 - w4/5: 
   - writing paper
+    - Intro
+      - Overview about MPD
+    - Data
+      - Hit test
+      - Prediction
+    - Methodology
+    - Results
+    - Conclusion
 
