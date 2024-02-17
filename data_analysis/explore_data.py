@@ -8,7 +8,8 @@ import statsmodels.api as sm
 from statsmodels.tsa.seasonal import seasonal_decompose
 
 
-def calc_rolling_stat(df: pd.DataFrame, month: int = 6) -> pd.DataFrame:
+def calc_rolling_stat(df: pd.DataFrame, n: int = None,
+                      month: int = 6) -> pd.DataFrame:
     """
     Calculate rolling period aggregate statistics
 
@@ -39,7 +40,10 @@ def calc_rolling_stat(df: pd.DataFrame, month: int = 6) -> pd.DataFrame:
 
     def ret_min(x): return np.log(x.min() / x.iloc[0])
 
-    n = month * 20 + 1
+    if n is None:
+        n = month * 20 + 1
+    else:
+        n += 1
     ret = df.rolling(f"{n}D").aggregate([ret, vol, ret_max, ret_min]).shift(-n)
 
     return ret.stack(level=0).swaplevel()

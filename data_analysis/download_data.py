@@ -1,11 +1,11 @@
 from datetime import datetime
-from typing import Callable
-from functools import wraps
 
 import nasdaqdatalink
 import pandas as pd
+import quandl
 
-nasdaqdatalink.ApiConfig.api_key = "DKEpSA2RKyvtpZKmVWGv"
+myAPIkey = "DKEpSA2RKyvtpZKmVWGv"
+nasdaqdatalink.ApiConfig.api_key = myAPIkey
 
 
 def cache_df(name: str):
@@ -113,3 +113,27 @@ def get_mpd() -> pd.DataFrame:
     data.loc[:, "idt"] = pd.to_datetime(data["idt"])
 
     return data
+
+
+@cache_df(name="commodity_price")
+def get_commodity(
+        future_name: list[str] = ['CMX_SI_SI', 'CBT_C_C', 'NYX_EMA_EMA', 'CBT_S_S', 'CMX_GC_GC', 'CBT_W_W'],
+        commodity: list[str] = ['silver', 'corn1', 'corn2', 'soybean', 'gold', 'wheat'],
+        start_date: str | datetime = '2006-01-12',
+        end_date: str | datetime = '2024-01-10'
+):
+    data_list = list()
+    for i, name in enumerate(future_name):
+        df = quandl.get('OWF/' + name + '_6M' + '_IVM', returns='pandas', start_date=start_date, end_date=end_date,
+                        api_key=myAPIkey)
+        df = df[['Future', 'DtT']]
+        df.rename(columns={'Future': 'FuturePrice', 'DtT': 'DtT(expiration)'}, inplace=True)
+        df = df[(df['DtT(expiration)'] >= 180.0) & (df['DtT(expiration)'] <= 210.0)]
+        df.ffill(inplace=True)
+        assert df.isna().any().any(), 'Please clean data'
+        df.drop(columns=['DtT(expiration)'], inplace=True)
+        df.rename(columns={'FuturePrice': commodity[i]}, inplace=True)
+        data_list.append(df)
+
+    df = pd.concat(data_list, axis=1).dropna()
+    return df
