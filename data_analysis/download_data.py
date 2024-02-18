@@ -137,3 +137,32 @@ def get_commodity(
 
     df = pd.concat(data_list, axis=1).dropna()
     return df
+
+
+def get_inflation():
+    inf1yr = pd.read_csv("../data/EXPINF1YR.csv", index_col='DATE')
+    inf2yr = pd.read_csv('../data/EXPINF2YR.csv', index_col='DATE')
+    inf5yr = pd.read_csv('../data/EXPINF5YR.csv', index_col='DATE')
+    inflation = inf1yr.join([inf2yr, inf5yr], how='outer')
+    inflation.index = pd.to_datetime(inflation.index)
+    return inflation
+
+
+@cache_df("bond_price.pkl")
+def get_bond(coupon_rate: float = 0.02):
+    treasury = quandl.get('USTREASURY/REALYIELD')
+    treasury.index = pd.to_datetime(treasury.index)
+
+    def bond_price(yield_rate, maturity_years, face_value=100, coupon_rate=coupon_rate):
+        period_rate = yield_rate / 2
+        total_periods = maturity_years * 2
+        coupon_payment = face_value * (coupon_rate / 2)
+        price = sum(coupon_payment / (1 + period_rate) ** (i + 1) for i in range(total_periods)) + face_value / (
+                    1 + period_rate) ** total_periods
+        return price
+
+    treasury['5YR_Price'] = treasury['5 YR'].apply(lambda y: bond_price(y / 100, 5))
+    treasury['10YR_Price'] = treasury['10 YR'].apply(lambda y: bond_price(y / 100, 10))
+    treasury.index = pd.to_datetime(treasury.index)
+
+    return treasury

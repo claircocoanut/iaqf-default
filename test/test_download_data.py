@@ -1,6 +1,7 @@
 import pandas as pd
 
-from data_analysis.download_data import get_fx, get_price, get_commodity
+from data_analysis.download_data import (get_fx, get_price, get_commodity,
+                                         get_bond, get_inflation)
 
 
 def test_get_price():
@@ -24,5 +25,17 @@ def test_get_commodity():
         start_date='2022-01-12',
         end_date='2022-02-10'
     )
+
+    assert isinstance(df, pd.DataFrame)
+
+
+def test_get_inflation():
+    df = get_inflation()
+
+    assert isinstance(df, pd.DataFrame)
+
+
+def test_get_bond():
+    df = get_bond()
 
     assert isinstance(df, pd.DataFrame)
