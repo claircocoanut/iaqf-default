@@ -138,7 +138,7 @@ def max_drawdown(s: pd.Series, return_dict: bool = False) -> float | pd.Series:
 
 
 def eval_return(cum_ret: pd.Series,
-                resample_interval: str = "2W",
+                resample_interval: str = None,
                 ann_factor: float = 26):
     """
     Calculate metrics to compare the results with different parameters:
@@ -164,7 +164,9 @@ def eval_return(cum_ret: pd.Series,
     -------
     dict of metrics
     """
-    ret = cum_ret.resample(resample_interval).ffill().diff().dropna()
+    if resample_interval is not None:
+        cum_ret = cum_ret.resample(resample_interval).ffill()
+    ret = cum_ret.diff().dropna()
 
     spy = get_spy(start_date=cum_ret.index.min(), end_date=cum_ret.index.max())
     spy = spy.resample("D").ffill().reindex(ret.index).pct_change()
