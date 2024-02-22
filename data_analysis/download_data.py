@@ -61,6 +61,28 @@ def get_price(tickers: list[str],
     return df
 
 
+@cache_df(name="spy")
+def get_spy(start_date: str | datetime,
+            end_date: str | datetime) -> pd.DataFrame:
+    """
+    Download SPY price for beta calculation
+
+    Parameters
+    ----------
+    start_date: get price data from start_date to end_date (both inclusive)
+    end_date: get price data from start_date to end_date (both inclusive)
+
+    Returns
+    -------
+    pd.DataFrame of required price data for analysis
+    """
+
+    return get_price(use_cache=False,
+                     tickers=["SPY"],
+                     start_date=start_date,
+                     end_date=end_date)["SPY"]
+
+
 @cache_df(name="fx_price")
 def get_fx(tickers: list[str],
            start_date: str | datetime,
